@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LiveCode — Real-time Code Editor</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app" id="app">
+
+    <!-- TOPBAR -->
+    <header class="topbar" role="banner" aria-label="Topbar">
+      <div class="brand">
+        <strong>LiveCode</strong>
+        <span class="muted"> — Realtime HTML / CSS / JS</span>
+      </div>
+
+      <div class="controls" role="toolbar" aria-label="Editor controls">
+        <button id="toggleTheme" class="btn ghost" title="Toggle theme (Dark/Light)">Dark</button>
+        <button id="runBtn" class="btn primary" title="Run (Ctrl/Cmd + Enter)">Run ▶</button>
+        <button id="saveBtn" class="btn" title="Save (Ctrl/Cmd + S)">Save</button>
+
+        <div class="dropdown" aria-haspopup="true">
+          <button class="btn ghost">Export ▾</button>
+          <div class="dropdown-menu" id="exportMenu" role="menu" aria-hidden="true">
+            <button id="exportHtml" role="menuitem">Download single HTML</button>
+            <button id="exportZip" role="menuitem">Download ZIP</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- WORKSPACE -->
+    <main class="workspace" role="main">
+      <!-- EDITOR COLUMN -->
+      <section class="editor-column" id="editorColumn">
+        <div class="editor-toolbar">
+          <div class="tabs" role="tablist" aria-label="Editor tabs">
+            <button class="tab active" data-target="html" role="tab" aria-selected="true">HTML</button>
+            <button class="tab" data-target="css" role="tab">CSS</button>
+            <button class="tab" data-target="js" role="tab">JS</button>
+          </div>
+          <div class="meta">
+            <label class="small">Autosave</label>
+            <input type="checkbox" id="autosaveToggle" checked aria-label="Enable autosave" />
+          </div>
+        </div>
+
+        <div class="editor-area" id="editors">
+          <div class="pane" data-lang="html">
+            <div class="pane-header">HTML</div>
+            <textarea id="htmlEditor" class="code" spellcheck="false" aria-label="HTML editor"></textarea>
+          </div>
+
+          <div class="pane hidden" data-lang="css">
+            <div class="pane-header">CSS</div>
+            <textarea id="cssEditor" class="code" spellcheck="false" aria-label="CSS editor"></textarea>
+          </div>
+
+          <div class="pane hidden" data-lang="js">
+            <div class="pane-header">JavaScript</div>
+            <textarea id="jsEditor" class="code" spellcheck="false" aria-label="JavaScript editor"></textarea>
+          </div>
+
+          <div class="editor-bottom">
+            <label class="small">Live</label>
+            <input type="checkbox" id="liveToggle" checked aria-label="Enable live preview" />
+            <label class="small">Delay</label>
+            <input id="autoDelay" type="range" min="150" max="1500" step="50" value="600" aria-label="Live update delay" />
+            <span id="delayValue">600ms</span>
+          </div>
+        </div>
+
+        <div class="resize-handle" id="resizeHandle" title="Drag to resize editors"></div>
+      </section>
+
+      <!-- PREVIEW COLUMN -->
+      <section class="preview-column" id="previewColumn">
+        <div class="preview-toolbar">
+          <div class="preview-title">Live Preview</div>
+          <div class="preview-actions">
+            <button id="openBlank" class="btn ghost" title="Open preview in a new tab">Open</button>
+          </div>
+        </div>
+
+        <iframe id="preview" sandbox="allow-scripts allow-forms allow-same-origin" title="Live preview"></iframe>
+
+        <div class="console" id="console" role="region" aria-label="Console output">
+          <div class="console-header">Console <span class="muted" id="consoleStatus"></span></div>
+          <div class="console-body" id="consoleBody" aria-live="polite"></div>
+          <div class="console-actions">
+            <button id="clearConsole" class="btn ghost">Clear</button>
+            <button id="openConsole" class="btn ghost">Open Logs</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <small>Tip: <kbd>Ctrl/Cmd</kbd> + <kbd>Enter</kbd> Run · <kbd>Ctrl/Cmd</kbd> + <kbd>S</kbd> Save</small>
+    </footer>
+  </div>
+
+  <!-- HTML2PDF for export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
